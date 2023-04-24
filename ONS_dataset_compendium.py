@@ -19,8 +19,6 @@ ONS_dataset_titles = titles + titles_nomis
 ONS_dataset_descriptions = descriptions + descriptions_nomis
 
 urls = osf.get_ONS_datasets_urls()
-url_df = pd.DataFrame({'URLs': urls})
-url_df.to_csv('temp.csv')
 
 
 """
