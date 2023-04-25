@@ -24,3 +24,7 @@ This file runs each of the relevant functions from ONS_scraper_functions.py stor
 ### ONS_datasets_metadata.csv
 
 This is simply the output of ONS_dataset_compendium.py containing the combined output of all the functions (excluding get_nomis_datasets_titles_descriptions().
+
+### ONS_data_download_and_view.ipynb
+
+A jupyter notebook that walks through the use of each of the ONS functions from ONS_scraper_functions.py. This includes a brief description of what each function does, how to use them, what inputs they need, and what they return. It also includes visualisation of the data in the form of dataframes and an example bar chart.
