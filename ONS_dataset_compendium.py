@@ -7,44 +7,44 @@ Date: 19/04/2023
 Last updated: 24/04/2023
 """
 
-import ONS_scraper_functions as osf
-
+from ONS_scraper_functions import *
 import pandas as pd
 
 
-"""Combining both API lists"""
-titles, descriptions = osf.get_ONS_datasets_titles_descriptions()
-titles_nomis, descriptions_nomis = osf.get_nomis_datasets_titles_descriptions()
-ONS_dataset_titles = titles + titles_nomis
-ONS_dataset_descriptions = descriptions + descriptions_nomis
+""" ONS Data """
 
-urls = osf.get_ONS_datasets_urls()
+# Can take a long time to run depending on internet speed
+titles, descriptions = get_ONS_datasets_titles_descriptions()
+urls = get_ONS_datasets_urls()
+long_desc = get_ONS_long_description()
 
-
-"""
-Produces a list of lists containing all column titles
-
-Notes:
-- Takes a long time so avoid running if you can
-"""
-column_titles = []
+latest_release = []
+cols = []
+col_data = []
 count = 0
+
 for url in urls:
-    column_titles.append(osf.find_ONS_cols(url))
-    print(count)
-    count += 1
+    response = requests.get(url)
+    try: 
+        latest_release.append(response.json()['release_date'])
+    except:
+        latest_release.append(float('nan'))
 
+    try:
+        cols.append(find_ONS_cols(url))
+    except:
+        cols.append('')
 
-# Combining all data into a dataframe and saving as a csv
-ONS_df = pd.DataFrame({'Titles': titles, 'Column_Titles': column_titles, 'description': descriptions, 'URLs': urls})
+    try:
+        col_data.append(find_ONS_cols_and_unique_vals(url))
+    except:
+        col_data.append('')
+
+    
+    count +=1
+
+ONS_df = pd.DataFrame({'Title': titles, 'Description': descriptions, 
+                        'Long_description': long_desc, 'Columns': cols, 
+                        'Unique_parameters': col_data, 'Latest_release': latest_release})
+
 ONS_df.to_csv('ONS_datasets_metadata.csv')
-
-
-""" 
-Comparing the dataset titles in the UK_metadata_compendium with the 
-titles of datasets available from the ONS API 
-"""
-#UK_metadata_compendium = "/Users/slowz/Downloads/UK_metadata_compedium.csv"
-#df = pd.read_csv(UK_metadata_compendium)
-#print(df['Name'])
-#print(df['Name'].isin(ONS_datasets).any())
