@@ -6,6 +6,7 @@ Aims:
 - Get a short description of each
 - Get the column titles of each dataset
 - Provide a url which can be used to get further info about each dataset
+- Get the unique non-numeric parameters from each dataset
 
 ## File Overviews
 
@@ -15,7 +16,9 @@ This file contains the functions:
 - get_ONS_datasets_titles_descriptions() which returns two lists; one containing the titles of each dataset and the other a description.
 - get_ONS_datasets_urls() which returns a list of urls which can then be used to download every dataset.
 - find_ONS_cols() which returns a list containing lists of the column titles for each dataset.
-- get_nomis_datasets_titles_descriptions() which does the same as get_ONS_datasets_titles_descriptions() but uses the Nomis API (also worth noting this isn't used in the ONS_dataset_compendium.py file.
+- get_ONS_long_description() gets a long description from the Quality and Methodology (QMI) page for all datasets.
+- find_ONS_cols_and_unique_vals() returns the unique values from each column as a dictionary with the key as the column title
+- get_nomis_datasets_titles_descriptions() which does the same as get_ONS_datasets_titles_descriptions() but uses the Nomis API (also worth noting this isn't used in the ONS_dataset_compendium.py file).
 
 ### ONS_dataset_compendium.py
 
@@ -23,7 +26,7 @@ This file runs each of the relevant functions from ONS_scraper_functions.py stor
 
 ### ONS_datasets_metadata.csv
 
-This is simply the output of ONS_dataset_compendium.py containing the combined output of all the functions (excluding get_nomis_datasets_titles_descriptions().
+This is simply the output of ONS_dataset_compendium.py containing the combined output of all the functions (excluding get_nomis_datasets_titles_descriptions()).
 
 ### ONS_data_download_and_view.ipynb
 
