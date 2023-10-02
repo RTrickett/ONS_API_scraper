@@ -12,7 +12,6 @@ Last updated: 24/04/2023
 import requests
 import pandas as pd
 from io import StringIO
-import json
 from bs4 import BeautifulSoup
 import re
 
